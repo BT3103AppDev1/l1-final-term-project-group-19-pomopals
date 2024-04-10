@@ -35,6 +35,7 @@ export default {
     generateCode() {
       this.sessionCode =
         Date.now().toString(36) + Math.random().toString(36).substring(2);
+      this.$emit("cancelDurationEvent");
     },
     enterCode() {
       alert("Joined Group Study Session");

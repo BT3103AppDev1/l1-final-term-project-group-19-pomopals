@@ -7,7 +7,11 @@ import SessionCode from "/src/components/SessionCode.vue";
 export default {
   name: "HomePage",
   components: { XpBar, Timer, NavBar, SessionCode },
-  methods: {},
+  methods: {
+    handleCancelDuration() {
+      this.$refs.timerRef.cancelDuration();
+    },
+  },
 };
 </script>
 
@@ -15,8 +19,8 @@ export default {
   <div class="home">
     <div><NavBar /></div>
     <div><XpBar /></div>
-    <div><Timer /></div>
-    <div><SessionCode /></div>
+    <div><Timer ref="timerRef" /></div>
+    <div><SessionCode @cancelDurationEvent="handleCancelDuration" /></div>
   </div>
 </template>
 
