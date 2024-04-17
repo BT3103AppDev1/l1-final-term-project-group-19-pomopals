@@ -2,11 +2,21 @@
 import Timer from "/src/components/Timer.vue";
 import XpBar from "/src/components/XpBar.vue";
 import NavBar from "@/components/NavBar.vue";
+import SessionCode from "@/components/SessionCode.vue";
 
 export default {
   name: "HostHomePage",
-  components: { XpBar, Timer, NavBar },
-  methods: {},
+  components: { XpBar, Timer, NavBar, SessionCode },
+  data() {
+    return {
+      sessionCode: "",
+    };
+  },
+  methods: {
+    handleDisplaySessionCode(code) {
+      this.sessionCode = code;
+    },
+  },
 };
 </script>
 
@@ -14,12 +24,16 @@ export default {
   <div class="home">
     <div><NavBar /></div>
     <div>
-      <h1 id="groupStudy">
-        <bold> YOU ARE THE HOST OF THE STUDY SESSION </bold>
-      </h1>
+      <SessionCode
+        v-if="false"
+        @displaySessionCode="handleDisplaySessionCode"
+      />
     </div>
     <div><XpBar /></div>
     <div><Timer ref="timerRef" /></div>
+    <p1 id="groupStudy">
+      {{ sessionCode }}
+    </p1>
   </div>
 </template>
 
@@ -41,6 +55,6 @@ export default {
 
 #groupStudy {
   color: black;
-  font-size: 100px;
+  font-size: 500px;
 }
 </style>

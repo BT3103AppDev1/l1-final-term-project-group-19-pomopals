@@ -41,6 +41,7 @@ export default {
       this.sessionCode =
         Date.now().toString(36) + Math.random().toString(36).substring(2);
       this.$emit("cancelDurationEvent");
+      this.$emit("updateSessionCode", this.sessionCode);
       let currentUser = firebaseAuth.currentUser;
       let username = currentUser.displayName; // username as primary key
       let userRef = firestore.collection("groupSession").doc(this.sessionCode);
