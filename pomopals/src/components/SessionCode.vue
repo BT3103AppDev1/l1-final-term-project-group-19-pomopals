@@ -73,12 +73,12 @@ export default {
 
       if (currentUser) {
         let username = currentUser.displayName;
-        let docRef = db.collection("groupSession").doc(sessionCode);
+        let userRef = db.collection("groupSession").doc(sessionCode);
 
         // Start a batch
         let batch = db.batch();
 
-        docRef
+        userRef
           .get()
           .then((doc) => {
             if (doc.exists) {
@@ -93,12 +93,17 @@ export default {
               } else if (!members.includes(username)) {
                 // Check if user is not already in member array
                 members.push(username);
-                batch.update(docRef, { members: members });
+                batch.update(userRef, { members: members });
                 batch
                   .commit()
                   .then(() => {
                     console.log("Members updated successfully!");
                     alert("Group joined successfully");
+                    // Only navigate once the Firestore set is successful
+                    this.$router.push({
+                      path: "/member",
+                      query: { sessionCode: this.sessionCode },
+                    });
                   })
                   .catch((error) => {
                     console.error("Error updating members: ", error);
