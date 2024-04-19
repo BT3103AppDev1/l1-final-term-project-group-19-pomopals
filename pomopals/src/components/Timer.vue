@@ -97,15 +97,35 @@
         @click="click"
         id="startButton"
       >
-        {{ buttonText }}
+        <img
+          v-show="buttonText == 'Start!'"
+          src="@/assets/start.png"
+          id="startButton"
+          width="50"
+          alt="Start!"
+        />
+        <img
+          v-show="buttonText == 'Pause'"
+          src="@/assets/pause.png"
+          id="pauseButton"
+          width="50"
+          alt="Pause"
+        />
+        <img
+          v-show="buttonText == 'Resume'"
+          src="@/assets/resume.png"
+          id="resumeButton"
+          width="50"
+          alt="Resume"
+        />
       </button>
 
       <button
         v-if="!isSettingTime && this.pomodoroDuration != 0"
-        id="cancelButton"
-        @click="cancelDuration"
+        id="restartButton"
+        @click="restartDuration"
       >
-        Cancel
+        <img src="@/assets/restart.png" width="50" alt="Restart" />
       </button>
 
       <div v-if="isSettingTime">
@@ -125,7 +145,7 @@
       </div>
 
       <button v-if="!isSettingTime" @click="showInputBox" id="settingButton">
-        Settings
+        <img src="@/assets/settings.png" width="50" alt="Settings" />
       </button>
     </div>
   </div>
@@ -340,7 +360,7 @@ export default {
       }
     },
 
-    cancelDuration() {
+    restartDuration() {
       clearInterval(this.interval);
 
       if (this.topRight) this.topRight.stop();
@@ -446,13 +466,26 @@ p {
 }
 
 #startButton,
-#cancelButton,
+#resumeButton,
+#pauseButton,
 #settingButton,
+#restartButton {
+  width: 100%;
+  max-width: 60px;
+  height: auto;
+  background: transparent;
+  border: 0;
+}
+
+#startButton {
+  width: 50px; /* or whatever size you desire */
+  height: auto; /* to maintain the aspect ratio */
+}
+
 #updateButton {
   margin-top: 50px;
   width: 200px;
   height: 68px;
-  background: white;
   border-radius: 20px;
   font-size: 36px;
   border: none;
