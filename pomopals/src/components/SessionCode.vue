@@ -139,20 +139,21 @@ export default {
 <style scoped>
 .sessionCodeContainer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 20px;
+  flex-direction: row; /* This will lay out the children in a row */
+  align-items: center; /* This will vertically align items in the middle, change as needed */
+  justify-content: center; /* This will horizontally center the items, change as needed */
+
+  left: 50%; /* Center the container horizontally */
+  transform: translateX(
+    -50%
+  ); /* Adjust position precisely to the horizontal center */
+  bottom: 20px; /* Position from the bottom */
   z-index: 10;
 }
 
 .sessionCodeContainer button {
-  display: block;
-  margin: 5px 0;
-  margin-top: 10px;
+  display: inline-block; /* inline-block is typically used for side-by-side layout */
+  margin: 5px; /* Provide spacing between buttons */
   width: 200px;
   height: 68px;
   background: white;
@@ -167,6 +168,6 @@ export default {
 }
 
 input[type="text"] {
-  margin-top: 10px; /* Additional margin for text inputs */
+  margin: 0 5px 10px 5px; /* Adjust margin for spacing around text inputs */
 }
 </style>
