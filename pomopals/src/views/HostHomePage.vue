@@ -3,23 +3,23 @@
     <span id="sessionCode">Session Code: {{ sessionCode }}</span>
   </div>
   <div class="home">
-    <NavBar />
+    <SignOutButton />
     <XpBar />
     <Timer ref="timerRef" />
   </div>
 </template>
 
 <script>
+import SignOutButton from "@/components/SignOutButton.vue";
 import Timer from "/src/components/Timer.vue";
 import XpBar from "/src/components/XpBar.vue";
-import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "HostHomePage",
   components: {
+    SignOutButton,
     Timer,
     XpBar,
-    NavBar,
   },
   data() {
     return {

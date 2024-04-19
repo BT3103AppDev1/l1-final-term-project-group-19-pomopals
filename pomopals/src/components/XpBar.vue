@@ -1,13 +1,6 @@
 <template>
   <div class="xpBar">
-    <table id="table">
-      <tr>
-        <th id="totalXPHeader">Total XP</th>
-      </tr>
-      <tr>
-        <td id="totalXP">{{ totalXP }}</td>
-      </tr>
-    </table>
+    <span id="totalXP"> Current XP: {{ totalXP }}</span>
   </div>
 </template>
 
@@ -26,7 +19,7 @@ export default {
   },
   methods: {
     handleAuthStateChanged() {
-      firebaseAuth.onAuthStateChanged(user => {
+      firebaseAuth.onAuthStateChanged((user) => {
         if (user) {
           // User is signed in, fetch the data
           this.fetchUserData(user.displayName);
@@ -56,39 +49,22 @@ export default {
           this.totalXP = "Error fetching data";
         }
       );
-    }
+    },
   },
 };
-
 </script>
 
 <style scoped>
 .xpBar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  position: absolute;
+  width: 263px;
+  height: 55px;
+  left: 498px;
+  top: 50px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
   text-align: center;
-}
-
-#table {
-  transform: translateY(65px);
-  width: 60%;
-  border-collapse: collapse;
-  margin-top: 10vh;
-  background-color: white;
-}
-
-#table th,
-#table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-  color: black;
-}
-
-#table th {
-  background-color: #f2f2f2;
-  color: black;
+  color: #ffffff;
 }
 </style>

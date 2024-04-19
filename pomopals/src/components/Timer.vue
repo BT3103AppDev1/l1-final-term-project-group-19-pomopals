@@ -95,37 +95,34 @@
       <button
         v-if="!isSettingTime && this.pomodoroDuration != 0"
         @click="click"
-        id="startButton"
+        id="changingButton"
       >
         <img
           v-show="buttonText == 'Start!'"
           src="@/assets/start.png"
           id="startButton"
-          width="50"
           alt="Start!"
         />
         <img
           v-show="buttonText == 'Pause'"
           src="@/assets/pause.png"
           id="pauseButton"
-          width="50"
           alt="Pause"
         />
         <img
           v-show="buttonText == 'Resume'"
           src="@/assets/resume.png"
           id="resumeButton"
-          width="50"
           alt="Resume"
         />
       </button>
 
       <button
-        v-if="!isSettingTime && this.pomodoroDuration != 0"
+        v-if="!isSettingTime && this.pomodoroDuration != 0 && !isResting"
         id="restartButton"
         @click="restartDuration"
       >
-        <img src="@/assets/restart.png" width="50" alt="Restart" />
+        <img src="@/assets/restart.png" alt="Restart" />
       </button>
 
       <div v-if="isSettingTime">
@@ -144,8 +141,12 @@
         <button id="updateButton" @click="updateDuration">Update</button>
       </div>
 
-      <button v-if="!isSettingTime" @click="showInputBox" id="settingButton">
-        <img src="@/assets/settings.png" width="50" alt="Settings" />
+      <button
+        v-if="!isSettingTime && !isResting"
+        @click="showInputBox"
+        id="settingButton"
+      >
+        <img src="@/assets/settings.png" alt="Settings" />
       </button>
     </div>
   </div>
@@ -159,13 +160,13 @@ import { firebaseAuth, firestore, db } from "../firebase.js";
 export default {
   name: "Home",
   data: function () {
-    let pomodoroDuration = 0;
+    let pomodoroDuration = 25 * 60;
 
     return {
       inputDuration: "",
       inputRestDuration: "",
       pomodoroDuration,
-      restDuration: 0,
+      restDuration: 5 * 60,
       currentTimeInSeconds: pomodoroDuration,
       currentSegment: 1,
       buttonText: "Start!",
@@ -202,10 +203,13 @@ export default {
       if (this.buttonText === "Start!" || this.buttonText === "Resume") {
         this.animateBar();
         this.buttonText = "Pause";
+        this.$emit("clickOnButtonEvent", this.buttonText);
       } else if (this.buttonText === "Pause") {
         this.pauseBar();
         this.buttonText = "Resume";
+        this.$emit("clickOnButtonEvent", this.buttonText);
       }
+      this.$emit("clickOnButtonEvent", this.buttonText);
     },
 
     pauseBar() {
@@ -251,6 +255,7 @@ export default {
 
           this.startRest();
         }, 4100);
+        console.log("button is now", this.buttonText);
 
         let userId = firebaseAuth.currentUser.uid; // userId as primary key
 
@@ -309,6 +314,7 @@ export default {
         this.buttonText = "Start!";
         this.isResting = false;
       }, this.restDuration * 1000);
+      this.$emit("clickOnButtonEvent", this.buttonText);
     },
 
     animateBar() {
@@ -372,6 +378,7 @@ export default {
 
       this.isResting = false;
       this.buttonText = "Start!";
+      this.$emit("clickOnButtonEvent", this.buttonText);
 
       this.currentSegment = 1;
 
@@ -410,22 +417,22 @@ export default {
 }
 #first-segment {
   position: absolute;
-  top: 0;
+  top: 40px;
   right: 0;
 }
 #second-segment {
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
   right: 0;
 }
 #third-segment {
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
   left: 0;
 }
 #fourth-segment {
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 0;
 }
 
@@ -433,7 +440,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -10%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -464,27 +471,24 @@ p {
   width: auto;
 }
 
+#changingButton,
 #startButton,
 #resumeButton,
 #pauseButton,
 #settingButton,
 #restartButton {
   width: 100%;
-  max-width: 50px;
+  max-width: 100px;
   height: auto;
   background: transparent;
   border: 0;
-}
-
-#startButton {
-  width: 50px; /* or whatever size you desire */
-  height: auto; /* to maintain the aspect ratio */
+  width: 70px;
 }
 
 #updateButton {
-  margin-top: 0px;
+  margin-top: 30px;
   width: 200px;
-  height: 68px;
+  height: 50px;
   border-radius: 20px;
   background-color: white;
   font-size: 36px;

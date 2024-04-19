@@ -9,7 +9,9 @@
         Generate Session Code
       </button>
 
-      <button @click="setViewState('start')">Back</button>
+      <button id="leaveButton" @click="setViewState('start')">
+        <img src="@/assets/leave.png" width="20" alt="Leave" />
+      </button>
     </div>
     <div v-if="viewState == 'join'">
       <input
