@@ -8,7 +8,7 @@
       <button id="generateButton" @click="generateCode">
         Generate Session Code
       </button>
-      <input type="text" v-model="sessionCode" readonly />
+
       <button @click="setViewState('start')">Back</button>
     </div>
     <div v-if="viewState == 'join'">
@@ -19,7 +19,9 @@
         ref="groupCodeInput"
       />
       <button @click="enterCode">Enter</button>
-      <button @click="setViewState('start')">Back</button>
+      <button id="leaveButton" @click="setViewState('start')">
+        <img src="@/assets/leave.png" width="20" alt="Leave" />
+      </button>
     </div>
   </div>
 </template>
@@ -139,35 +141,46 @@ export default {
 <style scoped>
 .sessionCodeContainer {
   display: flex;
-  flex-direction: row; /* This will lay out the children in a row */
-  align-items: center; /* This will vertically align items in the middle, change as needed */
-  justify-content: center; /* This will horizontally center the items, change as needed */
-
-  left: 50%; /* Center the container horizontally */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally in the container */
+  justify-content: center; /* Center children vertically in the container */
+  position: fixed; /* Fix position relative to the viewport */
+  left: 50%; /* Position the left edge of the container in the middle of the viewport */
+  bottom: 0; /* Align the container to the bottom of the viewport */
   transform: translateX(
     -50%
-  ); /* Adjust position precisely to the horizontal center */
-  bottom: 20px; /* Position from the bottom */
-  z-index: 10;
+  ); /* Shift the container left by half its width to center it */
+  z-index: 1000; /* Ensure it sits above other content; adjust as necessary */
 }
 
+/* You may want to add styles for the buttons and inputs to ensure they look good when centered */
+.sessionCodeContainer button,
+.sessionCodeContainer input[type="text"] {
+  margin: 0.5rem; /* Spacing around buttons and input */
+  /* Additional styles for buttons and input */
+}
+
+/* Styles for buttons */
 .sessionCodeContainer button {
-  display: inline-block; /* inline-block is typically used for side-by-side layout */
-  margin: 5px; /* Provide spacing between buttons */
-  width: 200px;
-  height: 68px;
-  background: white;
-  border-radius: 20px;
-  font-size: 36px;
+  padding: 10px 20px;
   border: none;
+  background-color: #f4f7fa; /* Example background color, change as desired */
+  border-radius: 5px;
   cursor: pointer;
 }
 
-#generateButton {
-  font-size: 25px;
+/* Styles for inputs */
+.sessionCodeContainer input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
 }
 
-input[type="text"] {
-  margin: 0 5px 10px 5px; /* Adjust margin for spacing around text inputs */
+#leaveButton {
+  width: 100%;
+  max-width: 20px;
+  height: auto;
+  background: transparent;
+  border: 0;
 }
 </style>

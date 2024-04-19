@@ -24,17 +24,8 @@ export default {
 .home {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  padding: 0;
-  font-family: "DM Sans", sans-serif;
-  background-image: url("/bg.jpeg");
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 1;
+  align-items: center;
+  padding: 20px;
 }
 #friendsButton,
 #leaderboardButton {
@@ -49,5 +40,10 @@ export default {
 
 #leaderboardButton {
   top: 19%;
+}
+
+#groupStudy {
+  color: black;
+  font-size: 500px;
 }
 </style>

@@ -400,14 +400,13 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 70vh;
   text-align: center;
 }
 .timer {
   position: relative;
   width: 330px;
   height: 330px;
-  margin-top: -0;
 }
 #first-segment {
   position: absolute;
@@ -483,10 +482,11 @@ p {
 }
 
 #updateButton {
-  margin-top: 50px;
+  margin-top: 0px;
   width: 200px;
   height: 68px;
   border-radius: 20px;
+  background-color: white;
   font-size: 36px;
   border: none;
   cursor: pointer;
