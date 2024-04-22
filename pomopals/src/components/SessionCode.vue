@@ -57,6 +57,7 @@ export default {
         members: [],
         restDuration: 0,
         timerDuration: 0,
+        xp: 0,
       };
       userRef
         .set(data)
@@ -101,6 +102,7 @@ export default {
     enterCode() {
       this.viewState = "start";
       let sessionCode = this.$refs.groupCodeInput.value;
+      this.$emit("enteredSessionCode", this.sessionCode);
       let currentUser = firebaseAuth.currentUser;
 
       if (currentUser) {

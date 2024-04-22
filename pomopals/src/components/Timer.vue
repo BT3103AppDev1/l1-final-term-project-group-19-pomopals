@@ -280,7 +280,8 @@ export default {
         .set({ pomodoroDuration: this.pomodoroDuration }, { merge: true })
         .then(() =>
           console.log(
-            "Pomodoro duration successfully written!",
+            // console log the current page cuz i cant console log it anywhere else idk
+            "Pomodoro duration successfully written in page: ",
             this.currentPage
           )
         )
@@ -407,7 +408,7 @@ export default {
         await this.updateXpWithTimeInUserFirebase(userRef, calculatedXP);
 
         // If current page is on HostHomePage, update Xp in groupID document
-        if (this.currentPage == "HostHomePage") {
+        if (this.currentPage === "HostHomePage") {
           await this.updateXpInGroupFirebase();
         }
       }
