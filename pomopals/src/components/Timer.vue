@@ -455,6 +455,7 @@ export default {
                   // GRP SESH HAS NO MEMBERS - DO NOT ALLOW XP 
                   alert("You are the only user in the group session. Please invite other users to use this feature. ")
                   console.log("There are no members in the group session.");
+                  return; 
               } else {
                   //ALLOW
                   console.log("There are members in the group session.");
@@ -464,8 +465,7 @@ export default {
           }
       }).catch((error) => {
           console.log("Error retreiving group session data:", error);
-      });
-
+      }); 
 
       if (this.currentTimeInSeconds <= 0) {
         if (this.currentSegment < 4) {
