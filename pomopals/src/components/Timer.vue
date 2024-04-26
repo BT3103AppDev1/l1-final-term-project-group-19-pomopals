@@ -447,6 +447,26 @@ export default {
         .doc(this.computedSessionCode);
       console.log("saving xp to groupID:", this.computedSessionCode);
 
+      //i added this in!
+      groupRef.get().then((doc) => {
+          if (doc.exists) {
+              let data = doc.data();
+              if (data.members && data.members.length === 0) {
+                  // GRP SESH HAS NO MEMBERS - DO NOT ALLOW XP 
+                  alert("You are the only user in the group session. Please invite other users to use this feature. ")
+                  console.log("There are no members in the group session.");
+              } else {
+                  //ALLOW
+                  console.log("There are members in the group session.");
+              }
+          } else {
+              console.log("No such group!");
+          }
+      }).catch((error) => {
+          console.log("Error retreiving group session data:", error);
+      });
+
+
       if (this.currentTimeInSeconds <= 0) {
         if (this.currentSegment < 4) {
           this.currentSegment += 1;
